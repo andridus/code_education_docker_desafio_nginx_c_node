@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile.nginx
+    image: andridus/code_education:docker_nginx
+    container_name: web
+    ports:
+      - "8080:80"
+    networks:
+      - nnet
+    depends_on: 
+      - node
+      - mysql
+  node:
+    build: 
+      context: .
+      dockerfile: Dockerfile.node
+    image: andridus/code_education:docker_node
+    container_name: node
+    volumes:
+      - ./src:/usr/src/app
+    networks:
+      - nnet
+    depends_on: 
+      - mysql
+    
+  mysql:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+    container_name: db
+    tty: true
+    restart: always
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment: 
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=root
+    networks:
+      - nnet
+
+networks:
+  nnet:
+    driver: bridge
