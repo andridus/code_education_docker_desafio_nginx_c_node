@@ -19,3 +19,15 @@ Suba tudo em um repositório e faça a entrega.
 ```bash
 docker-compose up -d
 ```
+
+### Api
+
+CRIAR UM NOVO USUÁRIO
+```http
+GET http://localhost:8080?user=fulano
+```
+
+MOSTRAR LISTA COM USUARIOS
+```http
+GET http://localhost:8080
+```
