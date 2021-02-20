@@ -1,12 +1,28 @@
 version: '3'
 
 services:
+  node:
+    #build: 
+    #  context: .
+    #  dockerfile: Dockerfile.node
+    image: andridus/code_education:docker_node
+    container_name: node
+    command: >
+     dockerize -wait tcp://mysql:3306 -timeout 40s  bash /usr/src/run
+    volumes:
+      - ./src:/usr/src/app
+    networks:
+      - nnet
+    depends_on: 
+      - mysql
   web:
-    build: 
-      context: .
-      dockerfile: Dockerfile.nginx
+    #build: 
+    #  context: .
+    #  dockerfile: Dockerfile.nginx
     image: andridus/code_education:docker_nginx
-    command: yarn && yarn dev
+    container_name: web
+    command:  >
+      bash -c "dockerize -wait http://node:3000 -timeout 120s nginx -g 'daemon off;' "
     container_name: web
     ports:
       - "8080:80"
@@ -15,18 +31,7 @@ services:
     depends_on: 
       - node
       - mysql
-  node:
-    build: 
-      context: .
-      dockerfile: Dockerfile.node
-    image: andridus/code_education:docker_node
-    container_name: node
-    volumes:
-      - ./src:/usr/src/app
-    networks:
-      - nnet
-    depends_on: 
-      - mysql
+  
     
   mysql:
     image: mysql:5.7
