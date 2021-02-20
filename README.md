@@ -1,4 +1,4 @@
-### DESAFIO DOCKER NGINX WITH NODE
+### DESAFIO CODE EDUCATION: DOCKER NGINX WITH NODE
 
 #### Descrição do Desafio
 Nesse desafio você colocará em prática o que aprendemos em relação a utilização do nginx como proxy reverso. A idéia principal é que quando um usuário acesse o nginx, o mesmo fará uma chamada em nossa aplicação node.js. Essa aplicação por sua vez adicionará um registro em nosso banco de dados mysql, cadastrando um nome na tabela people.
@@ -18,4 +18,16 @@ Suba tudo em um repositório e faça a entrega.
 ### Executar
 ```bash
 docker-compose up -d
+```
+
+### Api
+
+CRIAR UM NOVO USUÁRIO
+```http
+GET http://localhost:8080?user=fulano
+```
+
+MOSTRAR LISTA COM USUARIOS
+```http
+GET http://localhost:8080
 ```
