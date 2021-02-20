@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.nginx
     image: andridus/code_education:docker_nginx
+    command: yarn && yarn dev
     container_name: web
     ports:
       - "8080:80"
